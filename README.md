@@ -65,7 +65,7 @@ The focus of this repository is cloud deployment, server management, and product
 ```text
 User Browser
       ↓
-    Nginx
+Nginx Web Server
       ↓
 React Frontend + Express Backend
       ↓
@@ -78,72 +78,79 @@ MongoDB Atlas
 
 ## 1. Provisioned AWS EC2 Instance
 
-Created an Ubuntu EC2 instance and configured security group rules for:
-
-- SSH
-- HTTP
-- HTTPS
-- Application traffic
-
----
+Created an Ubuntu EC2 instance and configured security group rules for SSH, HTTP, HTTPS, and application traffic.
 
 ## 2. Connected Through SSH
 
 Connected securely using a `.pem` SSH key.
 
-Example:
-
 ```bash
 ssh -i fittrack-key.pem ubuntu@your-ec2-ip
 ```
 
----
-
 ## 3. Installed Server Dependencies
 
-Installed:
-
-- Node.js
-- npm
-- Git
-- Nginx
-- PM2
-
----
+Installed Node.js, npm, Git, Nginx, and PM2 on the Ubuntu server.
 
 ## 4. Configured MongoDB Atlas
 
 Connected the backend to a cloud-hosted MongoDB Atlas cluster using environment variables.
 
----
-
 ## 5. Built React Frontend
 
-Created a production frontend build using:
+Generated a production frontend build using Vite.
 
 ```bash
 npm run build
 ```
 
----
-
 ## 6. Configured Nginx
 
-Configured Nginx to:
-
-- Serve the React frontend
-- Route API requests to the Express backend
-- Support frontend routing
-
----
+Configured Nginx to serve the React frontend and route API requests to the Express backend.
 
 ## 7. Managed Backend with PM2
 
-Used PM2 to:
+Used PM2 to keep the backend running persistently and restart automatically after crashes or server reboots.
 
-- Keep the backend running persistently
-- Restart automatically on crashes
-- Start automatically after server reboot
+---
+
+# Example Deployment Commands
+
+## Clone Repository
+
+```bash
+git clone https://github.com/LewBrew/fitness-tracker.git
+cd fitness-tracker
+```
+
+## Install Dependencies
+
+```bash
+npm install
+cd client
+npm install
+```
+
+## Build Frontend
+
+```bash
+npm run build
+```
+
+## Start Backend with PM2
+
+```bash
+pm2 start server.js --name fittrack-backend
+pm2 save
+pm2 startup
+```
+
+## Restart Nginx
+
+```bash
+sudo nginx -t
+sudo systemctl restart nginx
+```
 
 ---
 
@@ -153,31 +160,21 @@ Used PM2 to:
 
 ![AWS EC2](screenshots/aws-ec2.png)
 
----
-
 ## MongoDB Atlas Cluster
 
 ![MongoDB Atlas](screenshots/mongo-cluster.png)
-
----
 
 ## PM2 Backend Status
 
 ![PM2 Status](screenshots/pm2-status.png)
 
----
-
 ## PM2 Application Logs
 
 ![PM2 Logs](screenshots/pm2-logs.png)
 
----
+## Application Login
 
-## Login Page
-
-![Login Page](screenshots/dashboard.png)
-
----
+![Application Login](screenshots/dashboard.png)
 
 ## Admin Dashboard
 
@@ -187,14 +184,7 @@ Used PM2 to:
 
 # Difference From Original FitTrack Repository
 
-The original FitTrack repository focuses on application development and MERN stack functionality such as:
-
-- authentication
-- workout tracking
-- goal tracking
-- admin functionality
-- MongoDB schemas
-- frontend UI
+The original FitTrack repository focuses on application development and MERN stack functionality such as authentication, workout tracking, goal tracking, admin functionality, MongoDB schemas, and frontend UI.
 
 This repository focuses specifically on cloud deployment and infrastructure management:
 
@@ -203,7 +193,7 @@ This repository focuses specifically on cloud deployment and infrastructure mana
 - PM2 process management
 - Nginx configuration
 - MongoDB Atlas integration
-- public deployment configuration
+- Public deployment configuration
 
 ---
 
@@ -243,6 +233,7 @@ Sensitive files are excluded from this repository:
 - AWS Load Balancer
 - CloudWatch Monitoring
 - Improved Frontend Error Handling
+- Restrict MongoDB Atlas access to only the EC2 server IP
 
 ---
 
