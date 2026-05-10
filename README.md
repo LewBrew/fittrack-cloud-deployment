@@ -1,68 +1,39 @@
 # FitTrack AWS Cloud Deployment
 
-A cloud-deployed version of the FitTrack MERN fitness tracking application hosted on AWS EC2. This repository focuses on deploying, configuring, and managing the application in a production-style Linux server environment using Nginx, PM2, and MongoDB Atlas.
+A cloud-deployed version of the FitTrack MERN fitness tracking application hosted on AWS EC2. This repository focuses on deploying, configuring, and managing the application in a Linux cloud server environment using Nginx, PM2, and MongoDB Atlas.
 
-The original application code is based on the FitTrack MERN project: https://github.com/LewBrew/fitness-tracker
+Original FitTrack application repository:
 
----
-
-## Project Purpose
-
-This repository documents the cloud deployment process for FitTrack rather than focusing only on application development.
-
-The main goal was to take an existing full-stack MERN application and deploy it publicly using AWS infrastructure, server configuration, process management, and cloud database integration.
+https://github.com/LewBrew/fitness-tracker
 
 ---
 
-## Cloud Deployment Features
+# Project Overview
+
+This project demonstrates deploying a full-stack MERN application to the cloud using AWS infrastructure and Linux server configuration tools.
+
+The focus of this repository is cloud deployment, server management, and production-style hosting rather than application feature development.
+
+---
+
+# Cloud Deployment Features
 
 - AWS EC2 Ubuntu Server Deployment
-- SSH Key-Based Server Access
-- Node.js Backend Hosting
-- React Production Build Deployment
-- Nginx Web Server Configuration
-- Nginx Reverse Proxy Routing
-- PM2 Backend Process Management
-- MongoDB Atlas Cloud Database Integration
-- Security Group Configuration
-- Public Web Application Hosting
-- Linux Server Environment Setup
+- SSH Key Authentication
+- React Frontend Production Build
+- Express Backend Hosting
+- Nginx Reverse Proxy Configuration
+- PM2 Process Management
+- MongoDB Atlas Cloud Database
+- Public Web Hosting
+- Linux Server Administration
+- Environment Variable Configuration
 
 ---
 
-## Deployment Architecture
+# Tech Stack
 
-The application uses a cloud-hosted deployment architecture.
-
-### Frontend
-
-- React application built with Vite
-- Production files generated using `npm run build`
-- Static frontend served through Nginx
-
-### Backend
-
-- Node.js and Express.js API
-- Managed with PM2 for persistent runtime
-- Runs on the EC2 instance behind Nginx routing
-
-### Database
-
-- MongoDB Atlas cloud database
-- Mongoose models used for structured application data
-- Remote database connection configured through environment variables
-
-### Server Infrastructure
-
-- AWS EC2 Ubuntu instance
-- Nginx as the public-facing web server
-- PM2 used to keep the backend running after terminal/session closure
-
----
-
-## Tech Stack
-
-### Cloud / Infrastructure
+## Cloud / Infrastructure
 
 - AWS EC2
 - Ubuntu Linux
@@ -70,64 +41,67 @@ The application uses a cloud-hosted deployment architecture.
 - PM2
 - SSH
 
-### Frontend
+## Frontend
 
 - React
 - Vite
 - React Router
-- CSS
 
-### Backend
+## Backend
 
 - Node.js
 - Express.js
 - Mongoose
 - JWT Authentication
-- bcrypt
 
-### Database
+## Database
 
 - MongoDB Atlas
 
 ---
 
-## Application Screenshots
+# Deployment Architecture
 
-### AWS EC2 Instance
-
-![AWS EC2 Instance](screenshots/aws-ec2.png)
-
-### MongoDB Atlas Cluster
-
-![MongoDB Atlas Cluster](screenshots/mongo-cluster.png)
-
-### PM2 Backend Process
-
-![PM2 Backend Process](screenshots/pm2-status.png)
-
-### Dashboard
-
-![Login Page](screenshots/dashboard.png)
-
-### Admin Panel
-
-![Admin Panel](screenshots/admin-panel.png)
+```text
+User Browser
+      ↓
+    Nginx
+      ↓
+React Frontend + Express Backend
+      ↓
+MongoDB Atlas
+```
 
 ---
 
-## Deployment Process
+# Deployment Process
 
-### 1. Provisioned AWS EC2 Instance
+## 1. Provisioned AWS EC2 Instance
 
-Created an Ubuntu-based EC2 instance and configured inbound security group rules for SSH, HTTP, HTTPS, and backend testing.
+Created an Ubuntu EC2 instance and configured security group rules for:
 
-### 2. Connected Through SSH
+- SSH
+- HTTP
+- HTTPS
+- Application traffic
 
-Used a `.pem` key file to securely access the EC2 instance through the terminal.
+---
 
-### 3. Installed Server Dependencies
+## 2. Connected Through SSH
 
-Installed required server tools including:
+Connected securely using a `.pem` SSH key.
+
+Example:
+
+```bash
+ssh -i fittrack-key.pem ubuntu@your-ec2-ip
+```
+
+---
+
+## 3. Installed Server Dependencies
+
+Installed:
 
 - Node.js
 - npm
@@ -135,17 +109,145 @@ Installed required server tools including:
 - Nginx
 - PM2
 
-### 4. Cloned and Configured Application
+---
 
-Cloned the FitTrack application repository onto the EC2 instance and configured the backend environment variables for MongoDB Atlas.
+## 4. Configured MongoDB Atlas
 
-### 5. Connected MongoDB Atlas
+Connected the backend to a cloud-hosted MongoDB Atlas cluster using environment variables.
 
-Configured MongoDB Atlas network access and connected the Express backend to the cloud database.
+---
 
-### 6. Built React Frontend
+## 5. Built React Frontend
 
-Generated the production frontend build using:
+Created a production frontend build using:
 
 ```bash
 npm run build
+```
+
+---
+
+## 6. Configured Nginx
+
+Configured Nginx to:
+
+- Serve the React frontend
+- Route API requests to the Express backend
+- Support frontend routing
+
+---
+
+## 7. Managed Backend with PM2
+
+Used PM2 to:
+
+- Keep the backend running persistently
+- Restart automatically on crashes
+- Start automatically after server reboot
+
+---
+
+# Screenshots
+
+## AWS EC2 Instance
+
+![AWS EC2](screenshots/aws-ec2.png)
+
+---
+
+## MongoDB Atlas Cluster
+
+![MongoDB Atlas](screenshots/mongo-cluster.png)
+
+---
+
+## PM2 Backend Status
+
+![PM2 Status](screenshots/pm2-status.png)
+
+---
+
+## PM2 Application Logs
+
+![PM2 Logs](screenshots/pm2-logs.png)
+
+---
+
+## Login Page
+
+![Login Page](screenshots/dashboard.png)
+
+---
+
+## Admin Dashboard
+
+![Admin Dashboard](screenshots/admin-panel.png)
+
+---
+
+# Difference From Original FitTrack Repository
+
+The original FitTrack repository focuses on application development and MERN stack functionality such as:
+
+- authentication
+- workout tracking
+- goal tracking
+- admin functionality
+- MongoDB schemas
+- frontend UI
+
+This repository focuses specifically on cloud deployment and infrastructure management:
+
+- AWS EC2 hosting
+- Linux server setup
+- PM2 process management
+- Nginx configuration
+- MongoDB Atlas integration
+- public deployment configuration
+
+---
+
+# Security Notes
+
+Sensitive files are excluded from this repository:
+
+- `.env`
+- `.pem` SSH keys
+- MongoDB credentials
+- connection strings
+- `node_modules`
+
+---
+
+# Skills Demonstrated
+
+- AWS EC2 Deployment
+- Linux Server Administration
+- Nginx Reverse Proxy Setup
+- PM2 Process Management
+- Cloud Database Integration
+- MERN Stack Deployment
+- SSH Configuration
+- Environment Variable Management
+- Production Hosting Workflow
+- Full-Stack Cloud Deployment
+
+---
+
+# Future Improvements
+
+- HTTPS / SSL Certificate
+- Custom Domain Name
+- Docker Containerization
+- CI/CD Pipeline
+- AWS Load Balancer
+- CloudWatch Monitoring
+- Improved Frontend Error Handling
+
+---
+
+# Related Repository
+
+Original FitTrack MERN Application:
+
+https://github.com/LewBrew/fitness-tracker
